@@ -49,7 +49,7 @@ defmodule System.Mixfile do
         #{:relx, github: "erlware/relx", override: true},
         #{:model, in_umbrella: true},
         #{:adapter, in_umbrella: true},
-        #{:timex, "~> 2.1"}
+        {:timex, "~> 3.0"}
     ]
   end
 end
