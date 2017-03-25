@@ -5,7 +5,8 @@ defmodule Prevalent.System do
         GenServer.start_link(Prevalent.System, state, opts)
     end
 
-    def handle_call({:execute, _command}, _from, actual_state) do
-        {:reply, {:executed}, actual_state}
+    def handle_call({:execute, command}, _from, actual_state) do
+        result = command.("")
+        {:reply, {:executed, result}, actual_state}
     end
 end
