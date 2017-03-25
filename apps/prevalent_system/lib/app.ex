@@ -4,7 +4,7 @@ defmodule Prevalent.App do
     def start(_type, _args) do
         import Supervisor.Spec
         tree = [
-            worker(Prevalent.System, [[], [name: :prevalent_system]])
+            worker(Prevalent.SystemApi, [[], [name: :prevalent_system]])
         ]
         opts = [name: Prevalent.Sup, strategy: :one_for_one]
         Supervisor.start_link(tree, opts)

@@ -4,9 +4,7 @@ defmodule Prevalent.SystemTest do
 
     @tag :PrevalentSystemTest
     test "execute command on system" do
-        {:executed, value} = Prevalent.SystemApi.execute(
-            {fn(actual_state, data) -> data end, "teste"}
-        )
+        {:executed, value} = Prevalent.SystemApi.execute {fn(actual_state, data) -> data end, "teste"}
         assert value == "teste"
     end
 end
