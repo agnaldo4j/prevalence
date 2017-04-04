@@ -12,11 +12,28 @@ defmodule Prevalent.System do
         File.cd(dir)
         {function, data} = command
         result = function.(actual_state, data)
-        {:reply, {:executed, result}, result}
+        {:reply, {:executed, actual_state}, actual_state}
     end
 
     def handle_call({:reload_system}, _from, actual_state) do
-        {:reply, {:executed}, actual_state}
+        {:ok, dir} = File.cwd()
+        File.cd("commands")
+        {:ok, list_of_commands} = File.ls(".")
+        IO.inspect(list_of_commands)
+
+        #load file with system that contains actual_state
+
+        result = List.foldr(list_of_commands, actual_state, fn(path, acc) ->
+            {:ok, binary} = File.read(path)
+            command = :erlang.binary_to_term(binary)
+            {function, data} = command
+            function.(actual_state, data)
+            actual_state
+        end)
+
+        File.cd(dir)
+        IO.inspect(result)
+        {:reply, {:executed, result}, result}
     end
 
     def handle_call({:take_snapshot}, _from, actual_state) do
