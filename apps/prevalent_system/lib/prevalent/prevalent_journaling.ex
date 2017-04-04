@@ -1,13 +1,15 @@
 defmodule Prevalent.Journaling do
 
+    defp write_binary(file_name, binary_data) do
+        {:ok, file} = File.open file_name, [:write]
+        IO.binwrite file, :erlang.term_to_binary(binary_data)
+        File.close file
+    end
+
     def log_command(command) do
         {:ok, str_time} = Timex.format(Timex.now, "{ISO:Extended}")
         File.mkdir_p("commands")
-        File.cd!("commands", fn() ->
-            {:ok, file} = File.open "command_"<>str_time<>".dat", [:write]
-            IO.binwrite file, :erlang.term_to_binary(command)
-            File.close file
-        end)
+        File.cd!("commands", fn() -> write_binary("command_"<>str_time<>".dat", command) end)
     end
 
     def load_snapshot() do
@@ -21,11 +23,7 @@ defmodule Prevalent.Journaling do
 
     def take_snapshot(actual_state) do
       File.mkdir_p("snapshot")
-      File.cd!("snapshot", fn() ->
-          {:ok, file} = File.open "prevalent_system.dat", [:write]
-          IO.binwrite file, :erlang.term_to_binary(actual_state)
-          File.close file
-      end)
+      File.cd!("snapshot", fn() -> write_binary("prevalent_system.dat", actual_state) end)
     end
 
     def delete_all_commands() do
@@ -43,6 +41,7 @@ defmodule Prevalent.Journaling do
     end
 
     def load_command(path) do
-      File.cd!("commands", fn() -> File.read(path) end)
+      {:ok, binary} = File.cd!("commands", fn() -> File.read(path) end)
+      :erlang.binary_to_term(binary)
     end
 end

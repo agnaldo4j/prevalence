@@ -13,8 +13,7 @@ defmodule Prevalent.System do
         list_of_commands = Prevalent.Journaling.load_list_of_commands()
 
         result = List.foldr(list_of_commands, saved_state, fn(path, acc) ->
-            {:ok, binary} = Prevalent.Journaling.load_command(path)
-            command = :erlang.binary_to_term(binary)
+            command = Prevalent.Journaling.load_command(path)
             {function, data} = command
             function.(saved_state, data)
         end)
