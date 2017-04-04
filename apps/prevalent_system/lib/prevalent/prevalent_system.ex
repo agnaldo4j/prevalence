@@ -2,14 +2,7 @@ defmodule Prevalent.System do
     use GenServer
     use Timex
     def handle_call({:execute, command}, _from, actual_state) do
-        {:ok, str_time} = Timex.format(Timex.now, "{ISO:Extended}")
-        {:ok, dir} = File.cwd()
-        File.mkdir_p("commands")
-        File.cd("commands")
-        {:ok, file} = File.open "command_"<>str_time<>".dat", [:write]
-        IO.binwrite file, :erlang.term_to_binary(command)
-        File.close file
-        File.cd(dir)
+        Prevalent.Journaling.log_command(command)
         {function, data} = command
         result = function.(actual_state, data)
         {:reply, {:executed, result}, result}
@@ -17,48 +10,27 @@ defmodule Prevalent.System do
 
     def handle_call({:reload_system}, _from, actual_state) do
         {:ok, dir} = File.cwd()
-        File.cd("snapshot")
-        saved_state = case File.read("prevalent_system.dat") do
-          {:ok, system_binary} -> :erlang.binary_to_term(system_binary)
-          {:error, error} -> %{}
-        end
-
-
-        IO.inspect("reload")
-        IO.inspect(saved_state)
-
+        saved_state = Prevalent.Journaling.load_snapshot()
         File.cd(dir)
-        File.cd("commands")
-        {:ok, list_of_commands} = File.ls(".")
-        IO.inspect(list_of_commands)
-
-        #load file with system that contains actual_state
+        list_of_commands = Prevalent.Journaling.load_list_of_commands()
+        File.cd(dir)
 
         result = List.foldr(list_of_commands, saved_state, fn(path, acc) ->
-            {:ok, binary} = File.read(path)
+            {:ok, binary} = Prevalent.Journaling.load_command(path)
             command = :erlang.binary_to_term(binary)
             {function, data} = command
-            IO.inspect(function)
             function.(saved_state, data)
         end)
-
         File.cd(dir)
-        IO.inspect(result)
+
         {:reply, {:executed, result}, result}
     end
 
     def handle_call({:take_snapshot}, _from, actual_state) do
         {:ok, dir} = File.cwd()
-        File.mkdir_p("snapshot")
-        File.cd("snapshot")
-        {:ok, file} = File.open "prevalent_system.dat", [:write]
-        IO.binwrite file, :erlang.term_to_binary(actual_state)
-        File.close file
+        Prevalent.Journaling.take_snapshot(actual_state)
         File.cd(dir)
-
-        File.cd("commands")
-        {:ok, list_of_commands} = File.ls(".")
-        Enum.each(list_of_commands, fn(path) -> File.rm(path) end)
+        Prevalent.Journaling.delete_all_commands()
         File.cd(dir)
         {:reply, {:executed}, actual_state}
     end
