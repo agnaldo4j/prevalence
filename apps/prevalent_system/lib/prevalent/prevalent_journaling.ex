@@ -1,5 +1,4 @@
 defmodule Prevalent.Journaling do
-  @moduledoc false
 
     def log_command(command) do
         {:ok, str_time} = Timex.format(Timex.now, "{ISO:Extended}")
