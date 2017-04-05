@@ -1,6 +1,6 @@
 defmodule Prevalent.System do
     use GenServer
-    use Timex
+
     def handle_call({:execute, command}, _from, actual_state) do
         Prevalent.Journaling.log_command(command)
         |> execute_command(actual_state)
