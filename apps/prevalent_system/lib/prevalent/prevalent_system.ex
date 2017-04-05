@@ -10,13 +10,15 @@ defmodule Prevalent.System do
     def handle_call({:reload_system}, _from, actual_state) do
         saved_state = Prevalent.Journaling.load_snapshot()
         list_of_commands = Prevalent.Journaling.load_list_of_commands()
+        result = execute_all_commands(list_of_commands, saved_state)
+        {:reply, {:executed, result}, result}
+    end
 
-        result = List.foldr(list_of_commands, saved_state, fn(path, acc) ->
+    def execute_all_commands(list_of_commands, saved_state) do
+        List.foldr(list_of_commands, saved_state, fn(path, acc) ->
             Prevalent.Journaling.load_command(path)
             |> execute_command(saved_state)
         end)
-
-        {:reply, {:executed, result}, result}
     end
 
     def execute_command({function, data}, actual_state) do
