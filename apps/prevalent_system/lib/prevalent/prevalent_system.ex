@@ -8,13 +8,12 @@ defmodule Prevalent.System do
     end
 
     def handle_call({:reload_system}, _from, actual_state) do
-        saved_state = Prevalent.Journaling.load_snapshot()
-        list_of_commands = Prevalent.Journaling.load_list_of_commands()
-        execute_all_commands(list_of_commands, saved_state)
+        Prevalent.Journaling.load_system_state
+        |> execute_all_commands
         |> response_execution
     end
 
-    def execute_all_commands(list_of_commands, saved_state) do
+    def execute_all_commands({saved_state, list_of_commands}) do
         List.foldr(list_of_commands, saved_state, fn(path, acc) ->
             Prevalent.Journaling.load_command(path)
             |> execute_command(saved_state)
@@ -27,8 +26,7 @@ defmodule Prevalent.System do
 
     def handle_call({:take_snapshot}, _from, actual_state) do
         Prevalent.Journaling.take_snapshot(actual_state)
-        Prevalent.Journaling.delete_all_commands()
-        response_execution(actual_state)
+        |> response_execution
     end
 
     defp response_execution(actual_state) do
