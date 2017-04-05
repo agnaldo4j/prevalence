@@ -13,20 +13,20 @@ defmodule Prevalent.System do
         |> response_execution
     end
 
-    def execute_all_commands({saved_state, list_of_commands}) do
+    def handle_call({:take_snapshot}, _from, actual_state) do
+        Prevalent.Journaling.take_snapshot(actual_state)
+        |> response_execution
+    end
+
+    defp execute_all_commands({saved_state, list_of_commands}) do
         List.foldr(list_of_commands, saved_state, fn(path, acc) ->
             Prevalent.Journaling.load_command(path)
             |> execute_command(saved_state)
         end)
     end
 
-    def execute_command({function, data}, actual_state) do
+    defp execute_command({function, data}, actual_state) do
       function.(actual_state, data)
-    end
-
-    def handle_call({:take_snapshot}, _from, actual_state) do
-        Prevalent.Journaling.take_snapshot(actual_state)
-        |> response_execution
     end
 
     defp response_execution(actual_state) do
