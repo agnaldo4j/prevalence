@@ -13,6 +13,7 @@ defmodule Prevalent.Journaling do
     end
 
     def load_snapshot() do
+        File.mkdir_p("snapshot")
         File.cd!("snapshot", fn() ->
             case File.read("prevalent_system.dat") do
                 {:ok, system_binary} -> :erlang.binary_to_term(system_binary)
@@ -34,6 +35,7 @@ defmodule Prevalent.Journaling do
     end
 
     def load_list_of_commands() do
+        File.mkdir_p("commands")
         File.cd!("commands", fn() ->
             {:ok, list_of_commands} = File.ls(".")
             list_of_commands
