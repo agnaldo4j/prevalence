@@ -5,3 +5,5 @@
 *.iml
 erl_crash.dump
 *.ez
+/commands
+/snapshot
