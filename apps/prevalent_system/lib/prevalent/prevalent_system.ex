@@ -3,15 +3,15 @@ defmodule Prevalent.System do
     use Timex
     def handle_call({:execute, command}, _from, actual_state) do
         Prevalent.Journaling.log_command(command)
-        result = execute_command(command, actual_state)
-        {:reply, {:executed, result}, result}
+        |> execute_command(actual_state)
+        |> response_execution
     end
 
     def handle_call({:reload_system}, _from, actual_state) do
         saved_state = Prevalent.Journaling.load_snapshot()
         list_of_commands = Prevalent.Journaling.load_list_of_commands()
-        result = execute_all_commands(list_of_commands, saved_state)
-        {:reply, {:executed, result}, result}
+        execute_all_commands(list_of_commands, saved_state)
+        |> response_execution
     end
 
     def execute_all_commands(list_of_commands, saved_state) do
@@ -28,6 +28,10 @@ defmodule Prevalent.System do
     def handle_call({:take_snapshot}, _from, actual_state) do
         Prevalent.Journaling.take_snapshot(actual_state)
         Prevalent.Journaling.delete_all_commands()
-        {:reply, {:executed}, actual_state}
+        response_execution(actual_state)
+    end
+
+    defp response_execution(actual_state) do
+      {:reply, {:executed}, actual_state}
     end
 end

@@ -10,6 +10,7 @@ defmodule Prevalent.Journaling do
         {:ok, str_time} = Timex.format(Timex.now, "{ISO:Extended}")
         File.mkdir_p("commands")
         File.cd!("commands", fn() -> write_binary("command_"<>str_time<>".dat", command) end)
+        command
     end
 
     def load_snapshot() do
@@ -43,7 +44,9 @@ defmodule Prevalent.Journaling do
     end
 
     def load_command(path) do
-      {:ok, binary} = File.cd!("commands", fn() -> File.read(path) end)
-      :erlang.binary_to_term(binary)
+      case File.cd!("commands", fn() -> File.read(path) end) do
+        {:ok, binary} -> :erlang.binary_to_term(binary)
+        {:error, reason} -> {fn(actual_state, data) -> actual_state end, ""}
+      end
     end
 end

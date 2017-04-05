@@ -3,18 +3,13 @@ defmodule Prevalent.SystemTest do
   doctest Prevalent.SystemApi
     @tag :PrevalentSystemTest
     test "take snapshot of the system" do
-        {:executed, value} = Prevalent.SystemApi.reload_system
-        {:executed, value} = Prevalent.SystemApi.execute {add_language(), "Erlang"}
-        assert value.languages == ["Erlang"]
-        {:executed, value} = Prevalent.SystemApi.execute {add_language(), "Elixir"}
-        assert value.languages == ["Erlang", "Elixir"]
+        assert {:executed} == Prevalent.SystemApi.reload_system
+        assert {:executed} == Prevalent.SystemApi.execute {add_language(), "Erlang"}
+        assert {:executed} == Prevalent.SystemApi.execute {add_language(), "Elixir"}
         assert {:executed} == Prevalent.SystemApi.take_snapshot
-        {:executed, value} = Prevalent.SystemApi.reload_system
-        assert value.languages == ["Erlang", "Elixir"]
-        {:executed, value} = Prevalent.SystemApi.execute {clear_languages(), []}
-        assert value.languages == []
-        {:executed, value} = Prevalent.SystemApi.reload_system
-        assert value.languages == []
+        assert {:executed} ==  Prevalent.SystemApi.reload_system
+        assert {:executed} == Prevalent.SystemApi.execute {clear_languages(), []}
+        assert {:executed} == Prevalent.SystemApi.reload_system
         assert {:executed} == Prevalent.SystemApi.take_snapshot
     end
 
