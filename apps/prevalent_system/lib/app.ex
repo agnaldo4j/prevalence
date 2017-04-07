@@ -11,5 +11,4 @@ defmodule Prevalent.App do
         opts = [name: Prevalent.Sup, strategy: :one_for_one]
         Supervisor.start_link(tree, opts)
     end
-  
 end

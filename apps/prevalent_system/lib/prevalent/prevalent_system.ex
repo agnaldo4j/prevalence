@@ -2,30 +2,31 @@ defmodule Prevalent.System do
     @moduledoc ""
 
     use GenServer
+    use Prevalent.Journaling
 
     def handle_call({:execute, command}, _from, actual_state) do
         command
-        |> Prevalent.Journaling.log_command
+        |> log_command
         |> execute_command(actual_state)
         |> response_execution
     end
 
     def handle_call({:reload_system}, _from, actual_state) do
-        Prevalent.Journaling.load_system_state
+        load_system_state
         |> execute_all_commands
         |> response_execution
     end
 
     def handle_call({:take_snapshot}, _from, actual_state) do
         actual_state
-        |> Prevalent.Journaling.take_snapshot
+        |> take_snapshot
         |> response_execution
     end
 
     defp execute_all_commands({saved_state, list_of_commands}) do
         List.foldr(list_of_commands, saved_state, fn(path, acc) ->
             path
-            |> Prevalent.Journaling.load_command
+            |> load_command
             |> execute_command(saved_state)
         end)
     end
