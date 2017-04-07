@@ -26,7 +26,7 @@ defmodule Prevalence.Mixfile do
   defp deps do
     [
         {:credo, "~> 0.7", only: [:dev, :test]},
-        {:inch_ex, only: :docs},
+        {:inch_ex, "~> 0.5", only: [:dev, :test]},
         {:coverex, "~> 1.4.9", only: :test}
     ]
   end
