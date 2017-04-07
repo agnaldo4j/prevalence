@@ -3,6 +3,7 @@ defmodule Prevalence.Mixfile do
 
   def project do
     [
+        test_coverage: [tool: Coverex.Task],
         apps_path: "apps",
         build_embedded: Mix.env == :prod,
         start_permanent: Mix.env == :prod,

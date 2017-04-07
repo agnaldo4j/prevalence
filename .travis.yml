@@ -4,5 +4,7 @@ elixir:
   - 1.4.2
 otp_release: 18.2.1
 
+script: "MIX_ENV=test mix do deps.get, deps.compile, test --cover"
+
 after_script:
   - MIX_ENV=test mix inch.report
