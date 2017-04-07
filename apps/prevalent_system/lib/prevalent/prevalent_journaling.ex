@@ -25,7 +25,7 @@ defmodule Prevalent.Journaling do
         File.cd!("snapshot", fn() ->
             case File.read("prevalent_system.dat") do
                 {:ok, system_binary} -> :erlang.binary_to_term(system_binary)
-                {:error, error} -> %{}
+                {:error, _error} -> %{}
             end
         end)
     end
@@ -55,7 +55,7 @@ defmodule Prevalent.Journaling do
     def load_command(path) do
       case File.cd!("commands", fn() -> File.read(path) end) do
         {:ok, binary} -> :erlang.binary_to_term(binary)
-        {:error, reason} -> {fn(actual_state, data) -> actual_state end, ""}
+        {:error, _reason} -> {fn(actual_state, _data) -> actual_state end, ""}
       end
     end
 end
