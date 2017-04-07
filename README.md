@@ -1,1 +1,1 @@
-# prevalence [![Build Status](https://travis-ci.org/agnaldo4j/prevalence.svg?branch=master)](https://travis-ci.org/agnaldo4j/prevalence)
+# prevalence [![Build Status](https://travis-ci.org/agnaldo4j/prevalence.svg?branch=develop)](https://travis-ci.org/agnaldo4j/prevalence)
