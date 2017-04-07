@@ -1,4 +1,5 @@
 defmodule Prevalent.SystemApi do
+    @moduledoc ""
 
     def start_link(state, opts \\ []) do
         GenServer.start_link(Prevalent.System, state, opts)

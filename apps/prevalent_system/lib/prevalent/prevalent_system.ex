@@ -1,8 +1,11 @@
 defmodule Prevalent.System do
+    @moduledoc ""
+
     use GenServer
 
     def handle_call({:execute, command}, _from, actual_state) do
-        Prevalent.Journaling.log_command(command)
+        command
+        |> Prevalent.Journaling.log_command
         |> execute_command(actual_state)
         |> response_execution
     end
@@ -14,13 +17,15 @@ defmodule Prevalent.System do
     end
 
     def handle_call({:take_snapshot}, _from, actual_state) do
-        Prevalent.Journaling.take_snapshot(actual_state)
+        actual_state
+        |> Prevalent.Journaling.take_snapshot
         |> response_execution
     end
 
     defp execute_all_commands({saved_state, list_of_commands}) do
         List.foldr(list_of_commands, saved_state, fn(path, acc) ->
-            Prevalent.Journaling.load_command(path)
+            path
+            |> Prevalent.Journaling.load_command
             |> execute_command(saved_state)
         end)
     end
