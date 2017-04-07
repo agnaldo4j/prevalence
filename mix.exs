@@ -15,7 +15,7 @@ defmodule Prevalence.Mixfile do
   end
 
     defp description do
-        """"""
+        ""
     end
 
     defp package do
