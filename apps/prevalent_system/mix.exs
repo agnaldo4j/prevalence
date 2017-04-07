@@ -51,6 +51,9 @@ defmodule System.Mixfile do
         #{:relx, github: "erlware/relx", override: true},
         #{:model, in_umbrella: true},
         #{:adapter, in_umbrella: true},
+        {:credo, "~> 0.7", only: [:dev, :test]},
+        {:inch_ex, "~> 0.5", only: [:dev, :test]},
+        {:coverex, "~> 1.4.12", only: :test},
         {:timex, "~> 3.0"}
     ]
   end
