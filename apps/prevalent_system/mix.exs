@@ -45,15 +45,6 @@ defmodule System.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-        #{:cf, "~> 0.2.1", override: true},
-        #{:erlware_commons, github: "erlware/erlware_commons", override: true},
-        #{:combine, github: "bitwalker/combine", override: true},
-        #{:relx, github: "erlware/relx", override: true},
-        #{:model, in_umbrella: true},
-        #{:adapter, in_umbrella: true},
-        {:credo, "~> 0.7", only: [:dev, :test]},
-        {:inch_ex, "~> 0.5", only: [:dev, :test]},
-        {:coverex, "~> 1.4.12", only: :test},
         {:timex, "~> 3.0"}
     ]
   end
