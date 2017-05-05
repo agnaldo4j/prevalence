@@ -11,7 +11,7 @@ defmodule Prevalent.System do
         |> response_execution
     end
 
-    def handle_call({:reload_system}, _from, actual_state) do
+    def handle_call({:reload_system}, _from, _actual_state) do
         Journaling.load_system_state
         |> execute_all_commands
         |> response_execution
@@ -24,7 +24,7 @@ defmodule Prevalent.System do
     end
 
     defp execute_all_commands({saved_state, list_of_commands}) do
-        List.foldr(list_of_commands, saved_state, fn(path, acc) ->
+        List.foldr(list_of_commands, saved_state, fn(path, _acc) ->
             path
             |> Journaling.load_command
             |> execute_command(saved_state)
