@@ -3,7 +3,7 @@ defmodule Prevalence.Mixfile do
 
   def project do
     [
-      app: :prevayler-iex,
+      app: :prevayler_iex,
       version: "0.1.0",
       elixir: "~> 1.4",
       build_embedded: Mix.env == :prod,
@@ -26,7 +26,7 @@ defmodule Prevalence.Mixfile do
   defp package do
     # These are the default files included in the package
     [
-      name: :prevayler-iex,
+      name: :prevayler_iex,
       files: ["lib", "priv", "mix.exs", "README*", "readme*", "LICENSE*", "license*"],
       maintainers: ["Agnaldo de Oliveira"],
       licenses: ["BSD 3-clause"],
