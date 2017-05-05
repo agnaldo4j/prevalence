@@ -8,9 +8,9 @@ defmodule Prevalent.Journaling do
     end
 
     def log_command(command) do
-        {:ok, str_time} = Timex.format(Timex.now, "{ISO:Extended}")
         File.mkdir_p("commands")
-        File.cd!("commands", fn() -> write_binary("command_" <> str_time <> ".dat", command) end)
+        time = Integer.to_string(:os.system_time(:milli_seconds))
+        File.cd!("commands", fn() -> write_binary("command_" <> time <> ".dat", command) end)
         command
     end
 
