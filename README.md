@@ -1,4 +1,4 @@
-# Prevalence
+# prevayler_iex
 [![Build Status](https://travis-ci.org/agnaldo4j/prevayler_iex.svg?branch=develop)](https://travis-ci.org/agnaldo4j/prevayler_iex)
 [![Deps Status](https://beta.hexfaktor.org/badge/all/github/agnaldo4j/prevayler_iex.svg?branch=develop)](https://beta.hexfaktor.org/github/agnaldo4j/prevayler_iex) 
 [![Inline docs](http://inch-ci.org/github/agnaldo4j/prevayler_iex.svg?branch=develop)](http://inch-ci.org/github/agnaldo4j/prevayler_iex)
