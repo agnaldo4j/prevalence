@@ -28,3 +28,7 @@ erl_crash.dump
 *.iml
 
 *.lock
+
+snapshot
+
+commands
