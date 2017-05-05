@@ -60,7 +60,10 @@ defmodule Prevalence.Mixfile do
       {:timex, "~> 3.0"},
       {:credo, "~> 0.7", only: [:dev, :test]},
       {:inch_ex, "~> 0.5", only: [:dev, :test]},
-      {:coverex, "~> 1.4.12", only: :test}
+      {:coverex, "~> 1.4.12", only: :test},
+      {:earmark, "~> 1.0", only: :dev},
+      {:ex_doc, "~> 0.13", only: :dev},
+      {:dialyze, "~> 0.2", only: :dev}
     ]
   end
 end
