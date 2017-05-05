@@ -7,13 +7,12 @@ defmodule Prevalence.Mixfile do
       app: :prevayler_iex,
       version: "0.1.0",
       elixir: "~> 1.4",
-      build_embedded: Mix.env == :prod,
-      start_permanent: Mix.env == :prod,
       deps: deps(),
       description: description(),
       package: package(),
       name: "prevayler-iex",
-      source_url: "https://github.com/agnaldo4j/prevalence.git"
+      source_url: "https://github.com/agnaldo4j/prevalence.git",
+      docs: [readme: "README.md"],
     ]
   end
 
@@ -27,7 +26,7 @@ defmodule Prevalence.Mixfile do
     # These are the default files included in the package
     [
       name: :prevayler_iex,
-      files: ["lib", "priv", "mix.exs", "README*", "readme*", "LICENSE*", "license*"],
+      files: ["lib", "mix.exs", "README*", "LICENSE*"],
       maintainers: ["Agnaldo de Oliveira"],
       licenses: ["BSD 3-clause"],
       links: %{"GitHub" => "https://github.com/elixir-ecto/postgrex"}
