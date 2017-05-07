@@ -9,6 +9,10 @@ defmodule Prevalent.SystemApi do
         GenServer.call(:prevalent_system, {:execute, command})
     end
 
+    def query(command) do
+        GenServer.call(:prevalent_system, {:query, command})
+    end
+
     def reload_system do
         GenServer.call(:prevalent_system, {:reload_system})
     end

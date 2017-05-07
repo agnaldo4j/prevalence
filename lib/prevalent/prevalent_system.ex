@@ -11,6 +11,12 @@ defmodule Prevalent.System do
         |> response_execution
     end
 
+    def handle_call({:query, command}, _from, actual_state) do
+        command
+        |> execute_query(actual_state)
+        |> response_query(actual_state)
+    end
+
     def handle_call({:reload_system}, _from, _actual_state) do
         Journaling.load_system_state
         |> execute_all_commands
@@ -35,7 +41,15 @@ defmodule Prevalent.System do
       function.(actual_state, data)
     end
 
+    defp execute_query({function}, actual_state) do
+      function.(actual_state)
+    end
+
     defp response_execution(actual_state) do
       {:reply, {:executed}, actual_state}
+    end
+
+    defp response_query(result, actual_state) do
+      {:reply, result, actual_state}
     end
 end

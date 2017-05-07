@@ -10,7 +10,13 @@ defmodule Prevalent.SystemTest do
         assert {:executed} == Api.execute {add_language(), "Elixir"}
         assert {:executed} == Api.take_snapshot
         assert {:executed} == Api.reload_system
+        {:ok, value} = Api.query {query_languages()}
+        assert Enum.empty?(value) == false
+        assert Enum.count(value) == 2
         assert {:executed} == Api.execute {clear_languages(), []}
+        {:ok, value} = Api.query {query_languages()}
+        assert Enum.empty?(value) == true
+        assert Enum.count(value) == 0
         assert {:executed} == Api.reload_system
         assert {:executed} == Api.take_snapshot
     end
@@ -27,6 +33,15 @@ defmodule Prevalent.SystemTest do
     defp clear_languages do
         fn(actual_state, data) ->
             Map.put(actual_state, :languages, data)
+        end
+    end
+
+    defp query_languages do
+        fn (actual_state) ->
+            case actual_state[:languages] do
+                value when is_list(value) -> {:ok, value}
+                _ -> {:error, "Attribute :languages not found."}
+            end
         end
     end
 end
