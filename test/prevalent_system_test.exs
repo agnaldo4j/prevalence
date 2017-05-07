@@ -5,7 +5,6 @@ defmodule Prevalent.SystemTest do
 
     @tag :PrevalentSystemTest
     test "take snapshot of the system" do
-        assert {:executed} == Api.reload_system
         assert {:executed} == Api.execute {add_language(), "Erlang"}
         assert {:executed} == Api.execute {add_language(), "Elixir"}
         assert {:executed} == Api.take_snapshot
