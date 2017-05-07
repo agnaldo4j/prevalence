@@ -3,7 +3,7 @@ defmodule Prevalent.SystemApi do
 
     def start_link(state, opts \\ []) do
         result = GenServer.start_link(Prevalent.System, state, opts)
-        reload_system
+        reload_system()
         result
     end
 
