@@ -5,7 +5,7 @@ defmodule Prevalence.Mixfile do
     [
       test_coverage: [tool: Coverex.Task, coveralls: true],
       app: :prevayler_iex,
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.4",
       deps: deps(),
       description: description(),
