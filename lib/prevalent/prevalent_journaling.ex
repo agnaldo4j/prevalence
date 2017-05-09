@@ -61,13 +61,11 @@ defmodule Prevalent.Journaling do
 
     defp snapshot_path() do
         configs = Application.get_env(:prevayler_iex, Prevalent.Journaling)
-        IO.puts("snapshot: ")
         configs[:snapshot_path]
     end
 
     defp commands_path() do
         configs = Application.get_env(:prevayler_iex, Prevalent.Journaling)
-        IO.puts("commands: ")
         configs[:commands_path]
     end
 end
