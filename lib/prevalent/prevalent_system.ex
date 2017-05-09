@@ -29,6 +29,11 @@ defmodule Prevalent.System do
         |> response_execution
     end
 
+    def handle_call({:erase_data}, _from, actual_state) do
+        Journaling.erase_data
+        |> response_execution
+    end
+
     defp execute_all_commands({saved_state, list_of_commands}) do
         List.foldr(list_of_commands, saved_state, fn(path, _acc) ->
             path

@@ -18,6 +18,7 @@ defmodule Prevalent.SystemTest do
         assert Enum.count(value) == 0
         assert {:executed} == Api.reload_system
         assert {:executed} == Api.take_snapshot
+        assert {:executed} == Api.erase_data()
     end
 
     defp add_language do

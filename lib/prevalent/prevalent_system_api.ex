@@ -22,4 +22,8 @@ defmodule Prevalent.SystemApi do
     def take_snapshot do
         GenServer.call(:prevalent_system, {:take_snapshot})
     end
+
+    def erase_data do
+        GenServer.call(:prevalent_system, {:erase_data})
+    end
 end
