@@ -29,8 +29,10 @@ erl_crash.dump
 
 *.lock
 
-snapshot
+**/db
 
-commands
+**/snapshot
+
+**/commands
 
 **/.directory
