@@ -15,11 +15,12 @@ defmodule Prevalent.SystemTest do
     test "take snapshot of the system" do
         assert {:executed} == Api.execute {add_language(), "Erlang"}
         assert {:executed} == Api.execute {add_language(), "Elixir"}
+        assert {:executed} == Api.execute {add_language(), "Elm"}
         assert {:executed} == Api.take_snapshot
         assert {:executed} == Api.reload_system
         {:ok, value} = Api.query {query_languages(), %{}}
         assert Enum.empty?(value) == false
-        assert Enum.count(value) == 2
+        assert Enum.count(value) == 3
         {:ok, result} = Api.query {query_language(), "Elixir"}
         assert Enum.at(result, 0) == "Elixir"
         assert {:executed} == Api.execute {clear_languages(), []}
