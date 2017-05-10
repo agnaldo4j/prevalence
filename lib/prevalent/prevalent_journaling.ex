@@ -8,7 +8,7 @@ defmodule Prevalent.Journaling do
         command
     end
 
-    def load_system_state do
+    def load_system_state() do
       snapshot = load_snapshot()
       list_of_commands = load_list_of_commands()
       {snapshot, list_of_commands}
@@ -28,7 +28,7 @@ defmodule Prevalent.Journaling do
       end
     end
 
-    def erase_data do
+    def erase_data() do
       delete_all_commands()
       delete_snapshot()
       %{}
@@ -44,7 +44,7 @@ defmodule Prevalent.Journaling do
         end)
     end
 
-    defp load_list_of_commands do
+    defp load_list_of_commands() do
         File.mkdir_p(commands_path())
         File.cd!(commands_path(), fn() ->
             {:ok, list_of_commands} = File.ls(".")
@@ -52,14 +52,14 @@ defmodule Prevalent.Journaling do
         end)
     end
 
-    defp delete_all_commands do
+    defp delete_all_commands() do
       File.cd!(commands_path(), fn() ->
           {:ok, list_of_commands} = File.ls(".")
           Enum.each(list_of_commands, fn(path) -> File.rm(path) end)
       end)
     end
 
-    defp delete_snapshot do
+    defp delete_snapshot() do
       File.cd!(snapshot_path(), fn() ->
           {:ok, list_of_snapshot} = File.ls(".")
           Enum.each(list_of_snapshot, fn(path) -> File.rm(path) end)

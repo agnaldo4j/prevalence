@@ -30,7 +30,7 @@ defmodule Prevalent.SystemTest do
         assert {:executed} == Api.take_snapshot
     end
 
-    defp add_language do
+    defp add_language() do
         fn(actual_state, data) ->
             case actual_state[:languages] do
                 nil -> Map.put(actual_state, :languages, [data])
@@ -39,13 +39,13 @@ defmodule Prevalent.SystemTest do
         end
     end
 
-    defp clear_languages do
+    defp clear_languages() do
         fn(actual_state, data) ->
             Map.put(actual_state, :languages, data)
         end
     end
 
-    defp query_languages do
+    defp query_languages() do
         fn (actual_state, _criteria) ->
             case actual_state[:languages] do
                 value when is_list(value) -> {:ok, value}
@@ -54,7 +54,7 @@ defmodule Prevalent.SystemTest do
         end
     end
 
-    defp query_language do
+    defp query_language() do
         fn (actual_state, criteria) ->
             case actual_state[:languages] do
                 value when is_list(value) ->
