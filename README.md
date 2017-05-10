@@ -4,6 +4,7 @@
 [![Inline docs](http://inch-ci.org/github/agnaldo4j/prevayler_iex.svg?branch=develop)](http://inch-ci.org/github/agnaldo4j/prevayler_iex)
 [![Coverage Status](https://coveralls.io/repos/github/agnaldo4j/prevayler_iex/badge.svg?branch=develop)](https://coveralls.io/github/agnaldo4j/prevayler_iex?branch=develop)
 [![hex.pm version](https://img.shields.io/hexpm/v/prevayler_iex.svg?style=flat)](https://hex.pm/packages/prevayler_iex)
+[![Ebert](https://ebertapp.io/github/agnaldo4j/prevayler_iex.svg)](https://ebertapp.io/github/agnaldo4j/prevayler_iex)
 
 **TODO: Add description**
 
