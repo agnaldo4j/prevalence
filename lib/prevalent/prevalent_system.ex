@@ -46,8 +46,8 @@ defmodule Prevalent.System do
       function.(actual_state, data)
     end
 
-    defp execute_query({function}, actual_state) do
-      function.(actual_state)
+    defp execute_query({function, criteria}, actual_state) do
+      function.(actual_state, criteria)
     end
 
     defp response_execution(actual_state) do
