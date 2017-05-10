@@ -31,6 +31,7 @@ config :prevayler_iex, Prevalent.Journaling,
        commands_path: "db/commands"
 ```
 
+You can see how it works in this [file](https://github.com/agnaldo4j/prevayler_iex/blob/develop/test/prevalent_system_test.exs)
 
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
