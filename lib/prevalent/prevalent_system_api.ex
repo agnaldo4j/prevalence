@@ -15,15 +15,15 @@ defmodule Prevalent.SystemApi do
         GenServer.call(:prevalent_system, {:query, command})
     end
 
-    def reload_system() do
+    def reload_system do
         GenServer.call(:prevalent_system, {:reload_system})
     end
 
-    def take_snapshot() do
+    def take_snapshot do
         GenServer.call(:prevalent_system, {:take_snapshot})
     end
 
-    def erase_data() do
+    def erase_data do
         GenServer.call(:prevalent_system, {:erase_data})
     end
 end
