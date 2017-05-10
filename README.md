@@ -15,9 +15,24 @@ by adding `prevayler_iex` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
-  [{:prevayler_iex, "~> 0.1.0"}]
+  [{:prevayler_iex, "~> 0.1.5"}]
 end
 ```
+
+Add application to start
+```elixir
+def application do
+    [applications: [:prevayler_iex]]
+  end
+```
+
+And configure database location, if you don't change this are the default config
+```elixir
+config :prevayler_iex, Prevalent.Journaling,
+       snapshot_path: "db/snapshot",
+       commands_path: "db/commands"
+```
+
 
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
