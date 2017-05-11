@@ -8,7 +8,7 @@
 
 ## Important
 
-This lib requires erlang 19 or newer. Because I use 
+This lib requires Erlang 19 or newer. Because I use 
 
 ```Elixir
 :os.system_time(:nanosecond)
