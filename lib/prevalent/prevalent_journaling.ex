@@ -3,7 +3,7 @@ defmodule Prevalent.Journaling do
 
     def log_command(command) do
         File.mkdir_p(commands_path())
-        time = Integer.to_string(:os.system_time(:milli_seconds))
+        time = Integer.to_string(:os.system_time(:nanosecond))
         File.cd!(commands_path(), fn() -> write_binary(time <> "_command.dat", command) end)
         command
     end
@@ -34,6 +34,14 @@ defmodule Prevalent.Journaling do
       %{}
     end
 
+    defp load_list_of_commands do
+        File.mkdir_p(commands_path())
+        File.cd!(commands_path(), fn() ->
+            {:ok, list_of_commands} = File.ls(".")
+            Enum.sort(list_of_commands)
+        end)
+    end
+
     defp load_snapshot do
         File.mkdir_p(snapshot_path())
         File.cd!(snapshot_path(), fn() ->
@@ -41,14 +49,6 @@ defmodule Prevalent.Journaling do
                 {:ok, system_binary} -> :erlang.binary_to_term(system_binary)
                 {:error, _error} -> %{}
             end
-        end)
-    end
-
-    defp load_list_of_commands do
-        File.mkdir_p(commands_path())
-        File.cd!(commands_path(), fn() ->
-            {:ok, list_of_commands} = File.ls(".")
-            list_of_commands
         end)
     end
 
