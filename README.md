@@ -21,7 +21,7 @@ by adding `prevayler_iex` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
-  [{:prevayler_iex, "~> 0.1.5"}]
+  [{:prevayler_iex, "~> 0.1.6"}]
 end
 ```
 
