@@ -2,7 +2,7 @@ language: elixir
 
 elixir:
   - 1.4.2
-otp_release: 18.2.1
+otp_release: 19.3
 
 script: "MIX_ENV=test mix do deps.get, deps.compile, test --cover, inch, hex.outdated"
 
