@@ -6,6 +6,14 @@
 [![hex.pm version](https://img.shields.io/hexpm/v/prevayler_iex.svg?style=flat)](https://hex.pm/packages/prevayler_iex)
 [![Ebert](https://ebertapp.io/github/agnaldo4j/prevayler_iex.svg)](https://ebertapp.io/github/agnaldo4j/prevayler_iex)
 
+## Important
+
+This lib requires erlang 19 or newer. Because I use 
+
+```Elixir
+:os.system_time(:nanosecond)
+```
+
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed
