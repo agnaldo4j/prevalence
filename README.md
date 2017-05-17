@@ -5,6 +5,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/agnaldo4j/prevayler_iex/badge.svg)](https://coveralls.io/github/agnaldo4j/prevayler_iex)
 [![hex.pm version](https://img.shields.io/hexpm/v/prevayler_iex.svg?style=flat)](https://hex.pm/packages/prevayler_iex)
 [![Ebert](https://ebertapp.io/github/agnaldo4j/prevayler_iex.svg)](https://ebertapp.io/github/agnaldo4j/prevayler_iex)
+*“You can sell your time, but you can never buy it back. So the price of everything in life is the amount of time you spend on it.” @yanaga*
 
 ## Important
 
