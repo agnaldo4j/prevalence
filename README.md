@@ -23,7 +23,7 @@ by adding `prevayler_iex` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
-  [{:prevayler_iex, "~> 0.1.6"}]
+  [{:prevayler_iex, "~> 0.1.7"}]
 end
 ```
 
