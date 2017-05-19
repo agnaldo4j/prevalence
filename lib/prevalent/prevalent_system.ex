@@ -4,6 +4,11 @@ defmodule Prevalent.System do
     use GenServer
     alias Prevalent.Journaling, as: Journaling
 
+    def init(_current_state) do
+        previous_state = reload_system()
+        {:ok, previous_state}
+    end
+
     def handle_call({:execute, command}, _from, actual_state) do
         command
         |> Journaling.log_command
@@ -18,8 +23,7 @@ defmodule Prevalent.System do
     end
 
     def handle_call({:reload_system}, _from, _actual_state) do
-        Journaling.load_system_state
-        |> execute_all_commands
+        reload_system()
         |> response_execution
     end
 
@@ -32,6 +36,11 @@ defmodule Prevalent.System do
     def handle_call({:erase_data}, _from, _actual_state) do
         Journaling.erase_data
         |> response_execution
+    end
+
+    defp reload_system do
+        Journaling.load_system_state
+        |> execute_all_commands
     end
 
     defp execute_all_commands({saved_state, list_of_commands}) do
