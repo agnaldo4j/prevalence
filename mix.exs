@@ -57,7 +57,7 @@ defmodule Prevalence.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:credo, "~> 0.8", only: [:dev, :test]},
+      {:credo, "~> 0.7", only: [:dev, :test]},
       {:inch_ex, "~> 0.5", only: [:dev, :test]},
       {:coverex, "~> 1.4.12", only: :test},
       {:earmark, "~> 1.0", only: :dev},
